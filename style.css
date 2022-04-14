@@ -1,0 +1,34 @@
+body{
+    background-color: rgb(209, 234, 250);
+}
+
+p{
+    font-size: 20px;
+    font-weight:700;
+}
+
+span{
+    font-size: 20px;
+    font-weight:700;
+}
+
+#sketch-2-b-drawn{
+    color:red;
+}
+
+#da-heading{
+    font-family: 'Bangers', cursive;
+    font-size:75px;
+    color: black;
+}
+
+h1{
+    margin-left: 130px;
+}
+
+#show_sketch{
+    float: right;
+    margin-right:100px;
+    margin-top: 20px;
+    background-color:deepskyblue;
+}
