@@ -13,4 +13,51 @@ draw_sketch=" ";
 answer_holder=" ";
 score=0;
 
+function updateCanvas(){
+    background("white");
+    random_no = Math.floor((Math.random()*array_1.length)+1);
+    sketch = array_1[random_no];
+    console.log(sketch);
+    document.getElementById("sketch-2-b-drawn").innerHTML= "Sketch To Be Drawn: " + sketch;
+}
+
+function setup(){
+    canvas= createCanvas(280, 280);
+    canvas.center();
+    background("white");
+    canvas.mouseReleased(classifyCanvas);
+    synth = window.speechSynthesis;
+}
+
+function draw(){
+    strokeWeight(13);
+    stroke(0);
+    if (mouseIsPressed){
+      line(pmouseX, pmouseY, mouseX, mouseY);
+    }
+    check_sketch();
+
+    if(drawn_sketch==sketch){
+        answer_holder="set";
+        score=score+1;
+        document.getElementById("score").innerHTML= "SCORE: " + score;
+    }
+}
+
+function check_sketch(){
+    timer_counter++;
+    document.getElementById("timer").innerHTML= "TIME: " + timer_counter;
+    console.log(timer_counter);
+    
+    if(timer_counter>300){
+        timer_counter=0;
+        timer_check="completed";
+        document.getElementById("win/lose").innerHTML="You lost, try again.";
+        if(answer_holder==set){
+            timer_check="";
+            answer_holder="";
+            updateCanvas();
+        }
+    }
+}
 
