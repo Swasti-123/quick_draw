@@ -32,3 +32,13 @@ h1{
     margin-top: 20px;
     background-color:deepskyblue;
 }
+
+#score{
+    float:left;
+    margin-left: 400px;
+}
+
+#timer{
+    float: right;
+    margin-right: 450px;
+}
