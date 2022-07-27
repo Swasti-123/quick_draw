@@ -13,21 +13,22 @@ drawn_sketch=" ";
 answer_holder=" ";
 score=0;
 
+
 function updateCanvas(){
     background("white");
     random_no = Math.floor((Math.random()*array_1.length)+1);
     sketch = array_1[random_no];
     console.log(sketch);
     document.getElementById("sketch-2-b-drawn").innerHTML= "Sketch To Be Drawn: " + sketch;
+    document.getElementById("win/lose").innerHTML= ""
 }
 
 function setup(){
     canvas= createCanvas(280, 280);
-    canvas.center();
+    canvas.position(630,200);
     background("white");
     canvas.mouseReleased(classifyCanvas);
     synth = window.speechSynthesis;
-    classifyCanvas
 }
 
 function draw(){
@@ -39,6 +40,7 @@ function draw(){
     check_sketch();
 
     if(drawn_sketch==sketch){
+        console.log("YOU WIN")
         answer_holder="set";
         score=score+1;
         document.getElementById("score").innerHTML= "SCORE: " + score;
@@ -49,17 +51,16 @@ function draw(){
 function check_sketch(){
     timer_counter++;
     document.getElementById("timer").innerHTML= "TIME: " + timer_counter;
-    console.log(timer_counter);
     
-    if(timer_counter>300){
+    if(timer_counter>3000){
         timer_counter=0;
         timer_check="completed";
         document.getElementById("win/lose").innerHTML="You lost, try again.";
-        if(answer_holder==set){
-            timer_check="";
-            answer_holder="";
-            updateCanvas();
-        }
+    }
+    if(timer_check=="completed" || answer_holder=="set"){
+        timer_check="";
+        answer_holder="";
+        updateCanvas();
     }
 }
 
@@ -77,8 +78,14 @@ function gotResult(error, results){
     }
 
     console.log(results);
-    document.getElementById('ur-sketch').innerHTML = 'Your Sketch: ' + results[0].label;
+    temp_sketch=results[0].label;
+    drawn_sketch=temp_sketch.replace("_"," " )
+    document.getElementById('ur-sketch').innerHTML = 'Your Sketch: ' + drawn_sketch;
     document.getElementById('confidence').innerHTML = 'Confidence: ' + Math.round(results[0].confidence *100) + "%";
-    utterThis= new SpeechSynthesisUtterance(results[0].label);
+    utterThis= new SpeechSynthesisUtterance(drawn_sketch);
     synth.speak(utterThis);
 } 
+function clear_canvas(){
+    background("white");
+    console.log("clear");
+}
